@@ -45,7 +45,7 @@ public class App {
 
     public void inputEmailAddress(String mail){
         //waitFor(instagramLogoLocator);
-        //driver.findElements(inputEmailAddressLocator).get(0).sendKeys(mail);
+        driver.findElements(inputEmailAddressLocator).get(0).sendKeys(mail);
         driver.get(BASE_URL_02);
     }
 
