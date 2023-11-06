@@ -8,35 +8,35 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
+
 public class App {
 
     WebDriver driver;
     String BASE_URL_01 = "https://www.instagram.com/accounts/emailsignup/";
     String BASE_URL_02 = "https://mail.tm/tr/";
-
-    By copyEmailAddressLocator = new By.ByCssSelector("input[type='email']");
+    By copyEmailAddressLocator = new By.ByCssSelector("input[title='Geçici e-posta adresinizi panoya kopyalamak için tıklayın!']");
     By inputEmailAddressLocator = new By.ByClassName("_aa48");
 
     By instagramLogoLocator = new By.ByCssSelector("div[role='button']");
 
     private void waitFor(By locator){
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
     public App(){
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("start-maximized");
         WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver(options);
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
         driver.get(BASE_URL_02);
     }
 
     public String copyMailAddress(){
         waitFor(copyEmailAddressLocator);
-        String mailAddress = driver.findElement(copyEmailAddressLocator).getText();
-        System.out.println("mail adres " + mailAddress);
-        return mailAddress;
+        driver.findElement(copyEmailAddressLocator).click();
+        System.out.println("mail adres " );
+        return "";
     }
 
     public void navigateToInstagram(){
